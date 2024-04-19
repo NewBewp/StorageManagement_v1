@@ -1,0 +1,79 @@
+CREATE DATABASE StorageManagement
+
+CREATE TABLE customer(
+	customer_id INT PRIMARY KEY NOT NULL IDENTITY(1,1),
+	name VARCHAR(50),
+	address VARCHAR(50),
+	phone VARCHAR(20),
+	email VARCHAR(50)
+)
+
+CREATE TABLE product(
+	product_id INT PRIMARY KEY NOT NULL IDENTITY(1,1),
+	name VARCHAR(50),
+	leght FLOAT,
+	thickness FLOAT,
+	weight FLOAT,
+	materials VARCHAR(50),
+	describes VARCHAR(50),	
+	product_type_id INT,
+	
+	FOREIGN KEY (product_type_id) REFERENCES product_type(product_type_id)
+)
+
+ALTER TABLE product
+ADD quantity int;
+
+ALTER TABLE product
+ADD price FLOAT;
+
+
+CREATE TABLE product_type(
+	product_type_id INT PRIMARY KEY NOT NULL IDENTITY(1,1),
+	name VARCHAR(50)
+)
+
+
+CREATE TABLE users(
+	users_id INT PRIMARY KEY NOT NULL IDENTITY(1,1),
+	name VARCHAR(50),
+	role VARCHAR(20),
+	password VARCHAR(50),
+	email VARCHAR(50)
+)
+
+CREATE TABLE orders(
+	orders_id INT PRIMARY KEY NOT NULL IDENTITY(1,1),
+	orders_day DATE,
+	
+	customer_id int,
+	product_id int,
+	
+	FOREIGN KEY (customer_id) REFERENCES customer(customer_id),
+	FOREIGN KEY (product_id) REFERENCES product(product_id),
+)
+
+-- Insert into product_type
+INSERT INTO product_type (name) VALUES ('Electronics'), ('Furniture'), ('Clothing');
+
+-- Insert into customer
+INSERT INTO customer (name, address, phone, email) VALUES 
+('John Doe', '123 Maple Street', '555-1234', 'john.doe@example.com'),
+('Jane Smith', '456 Oak Street', '555-5678', 'jane.smith@example.com');
+
+-- Insert into product
+INSERT INTO product (name, leght, thickness, weight, materials, describes, product_type_id, quantity) VALUES 
+('Laptop', 13.3, 0.6, 1.25, 'Aluminum', 'High-end laptop', 1, 10),
+('Dining Table', 150.0, 75.0, 50.5, 'Wood', 'Wooden dining table', 2, 5),
+('T-Shirt', 0.0, 0.0, 0.2, 'Cotton', 'Cotton T-shirt', 3, 20);
+
+-- Insert into users
+INSERT INTO users (name, role, password, email) VALUES 
+('Admin User', 'Administrator', 'adminpass', 'admin@example.com'),
+('Standard User', 'User', 'userpass', 'user@example.com');
+
+-- Insert into orders
+-- Assuming the identity values for customer_id and product_id start from 1 and increment by 1.
+INSERT INTO orders (orders_day, customer_id, product_id) VALUES 
+('2023-01-01', 1, 1),
+('2023-01-02', 2, 3);
