@@ -1,0 +1,15 @@
+@StorageManagement_v1_HostAddress = https://localhost:7060
+
+GET {{StorageManagement_v1_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+POST {{StorageManagement_v1_HostAddress}}/product
+Content-Type: application/json
+
+{
+  //CreateProductDTO
+}
+
+###
