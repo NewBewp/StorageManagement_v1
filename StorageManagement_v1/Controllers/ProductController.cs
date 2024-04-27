@@ -23,20 +23,20 @@ namespace StorageManagement_v1.Controllers
         [HttpGet(Name = "GetAllProducts")]
         public IActionResult GetProductsAll()
         {
-            var products = _context.Products.ToList();
-            var model = _mapper.Map<ProductDTO[]>(products);
+            var product = _context.Products.ToList();
+            var model = _mapper.Map<ProductDTO[]>(product);
             return Ok(model);
         }
 
         [HttpGet("GetProductBy/{id}", Name = "GetProductByID")]
         public IActionResult GetProductsById(int id)
         {
-            var products = _context.Products.Find(id);     
-            if(products == null)
+            var product = _context.Products.Find(id);     
+            if(product == null)
             {
                 return NotFound();
             }
-            var model = _mapper.Map<ProductDTO>(products);
+            var model = _mapper.Map<ProductDTO>(product);
             return Ok(model);
         }
 
@@ -70,6 +70,19 @@ namespace StorageManagement_v1.Controllers
            
             _context.SaveChanges();
             return Ok(model);
+        }
+
+        [HttpDelete("id", Name ="DeleteProduct")]
+        public IActionResult DeleteProduct(int id)
+        {
+            var productToDelete = _context.Products.Find(id);
+            if (productToDelete == null)
+            {
+                return NotFound();
+            }
+            _context.Products.Remove(productToDelete);
+            _context.SaveChanges();
+            return Ok(productToDelete);
         }
     }
 }
