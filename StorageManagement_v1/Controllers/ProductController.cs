@@ -20,7 +20,7 @@ namespace StorageManagement_v1.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet(Name = "GetProductsAll")]
+        [HttpGet(Name = "GetAllProducts")]
         public IActionResult GetProductsAll()
         {
             var products = _context.Products.ToList();
@@ -28,7 +28,7 @@ namespace StorageManagement_v1.Controllers
             return Ok(model);
         }
 
-        [HttpGet("GetByProduct/{id}", Name = "GetByProduct")]
+        [HttpGet("GetProductBy/{id}", Name = "GetProductByID")]
         public IActionResult GetProductsById(int id)
         {
             var products = _context.Products.Find(id);     
@@ -52,8 +52,24 @@ namespace StorageManagement_v1.Controllers
             _context.SaveChanges();
             return CreatedAtAction(nameof(GetProductsById), new { id = model.ProductId }, model);    
         }
+
+        [HttpPut("id",Name = "UpdateProduct")]
+        public IActionResult UpdateProduct(int id, [FromBody] UpdateProductDTO updateProductDTO)
+        {
+            var productsUpdate = _context.Products.Find(id);
+            if(productsUpdate == null)
+            {
+                return NotFound();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var model = _mapper.Map(updateProductDTO, productsUpdate);
+           
+            _context.SaveChanges();
+            return Ok(model);
+        }
     }
-
-
 }
-

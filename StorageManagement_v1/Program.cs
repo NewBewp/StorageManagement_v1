@@ -37,8 +37,10 @@ namespace StorageManagement_v1
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
+               
                 app.UseSwagger();
                 app.UseSwaggerUI();
+            
             }
 
             app.UseHttpsRedirection();

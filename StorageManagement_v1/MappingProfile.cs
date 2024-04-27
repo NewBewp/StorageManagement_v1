@@ -9,6 +9,7 @@ namespace StorageManagement_v1
         public MappingProfile() {
             CreateMap<Product, ProductDTO>();
             CreateMap<CreateProductDTO, Product>();
+            CreateMap<UpdateProductDTO, Product>();
         }
     }
 }
