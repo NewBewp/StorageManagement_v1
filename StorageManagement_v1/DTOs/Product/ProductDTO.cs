@@ -1,6 +1,4 @@
-﻿using StorageManagement_v1.Models;
-
-namespace StorageManagement_v1.DTOs.ProductDTO
+﻿namespace StorageManagement_v1.DTOs.ProductDTO
 {
     public class ProductDTO
     {
